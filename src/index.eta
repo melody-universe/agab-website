@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/agab.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= it.title %></title>
+</head>
+
+<body>
+  <div id="root"><%~ it.contents %></div>
+</body>
+
+</html>

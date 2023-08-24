@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { PageContext } from "./types";
 import "./global.css";
+import "./setViewHeight";
 
 export const clientRouting = true;
 

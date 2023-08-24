@@ -36,12 +36,15 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  min-height: calc(var(--vh, 1vh) * 100)
+  min-height: calc(var(--vh, 1vh) * 100);
 }
 
 h1 {
+  font-family: "Lazy-Dog";
   font-size: 3.2em;
   line-height: 1.1;
+  text-shadow: 3px 3px #b86ebb, 6px 6px #70338c;
+  transform: rotate(-8deg);
 }
 
 @media (prefers-color-scheme: light) {
@@ -55,4 +58,10 @@ h1 {
   a:hover {
     color: #8b4ca7;
   }
+}
+
+@font-face {
+  font-family: "Lazy-Dog";
+  font-style: normal;
+  src: local("Lazy-Dog"), url(/lazy_dog.ttf) format("truetype");
 }

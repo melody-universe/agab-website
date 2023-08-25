@@ -1,5 +1,12 @@
 import { FunctionComponent, useState } from "react";
-import { useAsync, useInterval } from "react-use";
+import useAsyncImport from "react-use/lib/useAsync.js";
+const useAsync = (useAsyncImport as any).default
+  ? (useAsyncImport as any).default
+  : useAsyncImport;
+import useIntervalImport from "react-use/lib/useInterval.js";
+const useInterval = (useIntervalImport as any).default
+  ? (useIntervalImport as any).default
+  : useIntervalImport;
 
 const BandName: FunctionComponent = () => {
   const [name, setName] = useState("Assigned Gay At Band");

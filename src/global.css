@@ -5,6 +5,7 @@
 
   color-scheme: light dark;
   color: #ffffff;
+  background-image: linear-gradient(#ff83d9, #71d4fe);
   background-color: #320064;
 
   font-synthesis: none;
@@ -24,11 +25,17 @@
 a {
   font-weight: 500;
   font-size: 1.5em;
-  color: #b86ebb;
+  color: #340165;
+  text-shadow: 2px 2px 3px #fff;
   text-decoration: inherit;
 }
 a:hover {
-  color: #974f9a;
+  color: #4e1c7f;
+}
+a:active {
+  padding-left: 1px;
+  padding-top: 1px;
+  text-shadow: 1px 1px 3px #fff;
 }
 
 body {
@@ -44,7 +51,7 @@ h1 {
   font-family: "Lazy-Dog";
   font-size: 3.2em;
   line-height: 1.1;
-  text-shadow: 3px 3px #b86ebb, 6px 6px #70338c;
+  text-shadow: -1px -1px #000, 3px 3px #b86ebb, 6px 6px #70338c;
   transform: rotate(-8deg);
 }
 

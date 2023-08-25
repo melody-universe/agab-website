@@ -1,3 +1,4 @@
+import BandName from "./BandName";
 import { ReactComponent as AgabLogo } from "./assets/agab.svg";
 
 export const Page = () => (
@@ -12,7 +13,9 @@ export const Page = () => (
         maxWidth: "80vw",
       }}
     />
-    <h1>Assigned Gay At Band</h1>
-    <a href="mailto:contact@aga.band">Contact</a>
+    <BandName />
+    <p>
+      <a href="mailto:contact@aga.band">Contact</a>
+    </p>
   </>
 );

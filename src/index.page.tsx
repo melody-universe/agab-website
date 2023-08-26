@@ -11,6 +11,7 @@ export const Page = () => (
         maxHeight: "20em",
         minWidth: "50vw",
         maxWidth: "80vw",
+        userSelect: "none",
       }}
     />
     <BandName />

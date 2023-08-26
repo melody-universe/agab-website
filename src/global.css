@@ -48,11 +48,13 @@ body {
 }
 
 h1 {
+  cursor: pointer;
   font-family: "Lazy-Dog";
   font-size: 3.2em;
   line-height: 1.1;
   text-shadow: -1px -1px #000, 3px 3px #b86ebb, 6px 6px #70338c;
   transform: rotate(-8deg);
+  user-select: none;
 }
 
 @media (prefers-color-scheme: light) {

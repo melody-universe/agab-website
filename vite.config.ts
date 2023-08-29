@@ -6,4 +6,5 @@ import svgr from "vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), ssr({ prerender: true }), svgr()],
+  ssr: { noExternal: ["react-use"] },
 });

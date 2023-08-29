@@ -12,7 +12,7 @@ export const Page = () => {
     style: {
       cursor: "pointer",
       minHeight: "10em",
-      maxHeight: "20em",
+      maxHeight: "16em",
       minWidth: "50vw",
       maxWidth: "80vw",
       userSelect: "none",

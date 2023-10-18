@@ -20,9 +20,17 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-a {
+p {
+  max-width: 800px;
+}
+
+a,
+p {
   font-weight: 500;
   font-size: 1.5em;
   color: #340165;

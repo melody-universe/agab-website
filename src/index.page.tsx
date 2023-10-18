@@ -1,4 +1,5 @@
 import BandName from "./BandName";
+import Button from "./Button";
 import { ReactComponent as Logo } from "./assets/agab.svg";
 
 export const Page = () => (
@@ -19,8 +20,11 @@ export const Page = () => (
     </p>
     <p>What does AGAB mean? Well, it stands for:</p>
     <BandName />
-    <p>
-      <a href="mailto:contact@aga.band">Contact</a>
-    </p>
+    <div>
+      <Button href="mailto:contact@aga.band">Contact</Button>
+      <Button href="https://forms.gle/vtUepdLQ7rk8YT1t7" target="_blank">
+        Interested in Joining?
+      </Button>
+    </div>
   </>
 );

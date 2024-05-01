@@ -21,7 +21,7 @@ export const Page = () => (
     <p>What does AGAB mean? Well, it stands for:</p>
     <BandName />
     <div>
-      <Button href="mailto:contact@aga.band">Contact</Button>
+      <Button href="mailto:assignedgayatband@gmail.com">Contact</Button>
       <Button href="https://forms.gle/vtUepdLQ7rk8YT1t7" target="_blank">
         Interested in Joining?
       </Button>

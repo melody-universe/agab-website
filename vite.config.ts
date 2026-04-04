@@ -1,10 +1,14 @@
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import ssr from "vite-plugin-ssr/plugin";
-import svgr from "vite-plugin-svgr";
+import preact from "@preact/preset-vite";
+import { cloudflare } from "@cloudflare/vite-plugin";
+import { setupPlugins as responsiveImage } from "@responsive-image/vite-plugin";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), ssr({ prerender: true }), svgr()],
-  ssr: { noExternal: ["react-use"] },
+  plugins: [
+    preact(),
+    responsiveImage({ include: /^.*\/assets\/.+\.png\?.*responsive$/ }),
+    ViteImageOptimizer({ test: /^assets\/.*\.png$/ }),
+    cloudflare(),
+  ],
 });

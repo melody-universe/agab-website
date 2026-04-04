@@ -26,23 +26,30 @@
 
 p {
   max-width: 800px;
-}
-
-a,
-p {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
   font-weight: 500;
   font-size: 1.5em;
   color: #340165;
   text-shadow: 2px 2px 3px #fff;
   text-decoration: inherit;
 }
-a:hover {
-  color: #4e1c7f;
+
+a {
+  background: #320064;
+  border-radius: 10px;
+  border-style: none;
+  color: white;
+  display: inline-block;
+  font-size: 1.5em;
+  font-weight: 500;
+  margin: 10px;
+  padding: 8px;
+  text-decoration: none;
 }
+
 a:active {
-  padding-left: 1px;
-  padding-top: 1px;
-  text-shadow: 1px 1px 3px #fff;
+  margin: 11px 9px 9px 11px;
 }
 
 body {
@@ -52,17 +59,6 @@ body {
   min-width: 320px;
   min-height: 100vh;
   min-height: calc(var(--vh, 1vh) * 100);
-}
-
-h1 {
-  cursor: pointer;
-  font-family: "Lazy-Dog";
-  font-size: 3.2em;
-  line-height: 1.1;
-  text-shadow: -1px -1px #000, 3px 3px #b86ebb, 6px 6px #70338c;
-  transform: rotate(-8deg);
-  user-select: none;
-  margin-bottom: 60px;
 }
 
 button {
@@ -91,5 +87,7 @@ button {
 @font-face {
   font-family: "Lazy-Dog";
   font-style: normal;
-  src: local("Lazy-Dog"), url(/lazy_dog.ttf) format("truetype");
+  src:
+    local("Lazy-Dog"),
+    url(/lazy_dog.ttf) format("truetype");
 }

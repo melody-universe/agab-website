@@ -1,6 +1,6 @@
 import { Card } from "../../components/Card";
+import { Form } from "../../components/Form";
 import { Textbox } from "../../components/Textbox";
-import "./login.scss";
 
 import { ComponentChild } from "preact";
 
@@ -12,16 +12,16 @@ export function Page(): ComponentChild {
   return (
     <Card>
       <h1>Login</h1>
-      <form className="login-form">
-        <Textbox placeholder="Username" type="text" />
-        <Textbox placeholder="Password" type="password" />
+      <Form>
+        <Textbox autoFocus tabIndex={1} placeholder="Username" type="text" />
+        <Textbox tabIndex={2} placeholder="Password" type="password" />
         <div class="submit-row">
-          <a tabIndex={0} href="./register">
+          <a tabIndex={4} href="./register">
             Register
           </a>
-          <input type="submit" value="Go" />
+          <input tabIndex={3} type="submit" value="Go" />
         </div>
-      </form>
+      </Form>
     </Card>
   );
 }

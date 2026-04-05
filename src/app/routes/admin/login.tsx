@@ -13,7 +13,12 @@ export function Page(): ComponentChild {
       <form>
         <input placeholder="Username" type="text" />
         <input placeholder="Password" type="password" />
-        <input type="submit" value="Go" />
+        <div class="submit-row">
+          <a tabIndex={0} href="./register">
+            Register
+          </a>
+          <input type="submit" value="Go" />
+        </div>
       </form>
     </div>
   );

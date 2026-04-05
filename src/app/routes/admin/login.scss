@@ -36,7 +36,29 @@
       background-clip: padding-box, border-box;
     }
 
-    > input[type="submit"] {
+    .submit-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1em;
+    }
+
+    a {
+      color: rgba(0, 0, 120, 0.8);
+      font-weight: 500;
+      background: none;
+      font-size: 1em;
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    a:hover {
+      color: rgba(100, 100, 200, 0.9);
+    }
+
+    input[type="submit"] {
+      cursor: pointer;
       padding: 10px 30px;
       width: fit-content;
       align-self: flex-end;

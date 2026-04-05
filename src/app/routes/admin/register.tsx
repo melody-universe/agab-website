@@ -1,4 +1,8 @@
-import { ComponentChild, InputHTMLAttributes } from "preact";
+import {
+  ComponentChild,
+  FormHTMLAttributes,
+  InputHTMLAttributes,
+} from "preact";
 import { Card } from "../../components/Card";
 import { Form } from "../../components/Form";
 import { Textbox } from "../../components/Textbox";
@@ -38,12 +42,13 @@ export async function loader(c: Context<{ Bindings: Env }>) {
 }
 
 export function Page(): ComponentChild {
-  const { activationCode, password, username } = useController();
+  const { activationCode, password, username, confirmPassword, onSubmit } =
+    useController();
 
   return (
     <Card>
       <h1>Register</h1>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Textbox
           type="text"
           placeholder="Activation code"
@@ -63,7 +68,12 @@ export function Page(): ComponentChild {
           tabIndex={3}
           {...password}
         />
-        <Textbox type="password" placeholder="Confirm password" tabIndex={4} />
+        <Textbox
+          type="password"
+          placeholder="Confirm password"
+          tabIndex={4}
+          {...confirmPassword}
+        />
 
         <div class="submit-row">
           <a tabIndex={6} href="./login">
@@ -78,37 +88,69 @@ export function Page(): ComponentChild {
 
 function useController(): Controller {
   const activationCode = useSignal("");
+  const activationCodeError = useSignal<null | string>(null);
+
   const username = useSignal("");
+  const usernameError = useSignal<null | string>(null);
+
   const password = useSignal("");
+  const passwordError = useSignal<null | string>(null);
+
   const confirmPassword = useSignal("");
+  const confirmPasswordError = useSignal<null | string>(null);
 
   return {
     activationCode: {
       onInput(event) {
         activationCode.value = event.currentTarget.value;
       },
+      error: activationCodeError.value,
     },
     username: {
       onInput(event) {
         username.value = event.currentTarget.value;
       },
+      error: usernameError.value,
     },
     password: {
       onInput(event) {
         password.value = event.currentTarget.value;
       },
+      error: passwordError.value,
     },
     confirmPassword: {
       onInput(event) {
         confirmPassword.value = event.currentTarget.value;
       },
+      error: confirmPasswordError.value,
+    },
+    onSubmit(event) {
+      event.preventDefault();
+
+      if (
+        username.value.match(/^(?:[a-z0-9]+ ?)*[a-z0-9]$/i) &&
+        username.value.length >= 1 &&
+        username.value.length <= 20
+      ) {
+        usernameError.value = null;
+      } else {
+        usernameError.value = [
+          "Only alphanumeric characters and spaces allowed.",
+          "Cannot have leading or trailing spaces.",
+          "Cannot have more than one consecutive space.",
+          "Must be between one and twenty characters.",
+        ].join(" ");
+      }
     },
   };
 }
 
 type Controller = {
-  activationCode: Pick<InputHTMLAttributes, "onInput">;
-  username: Pick<InputHTMLAttributes, "onInput">;
-  password: Pick<InputHTMLAttributes, "onInput">;
-  confirmPassword: Pick<InputHTMLAttributes, "onInput">;
+  activationCode: Input;
+  username: Input;
+  password: Input;
+  confirmPassword: Input;
+  onSubmit: FormHTMLAttributes["onSubmit"];
 };
+
+type Input = Pick<InputHTMLAttributes, "onInput"> & { error: null | string };

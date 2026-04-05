@@ -1,11 +1,13 @@
 import "./Form.scss";
 
-import { ComponentChild, ComponentChildren } from "preact";
+import { ComponentChild, FormHTMLAttributes } from "preact";
 
-export function Form({ children }: FormProps): ComponentChild {
-  return <form className="form">{children}</form>;
+export function Form({ children, ...props }: FormProps): ComponentChild {
+  return (
+    <form className="form" {...props}>
+      {children}
+    </form>
+  );
 }
 
-type FormProps = {
-  children?: ComponentChildren;
-};
+type FormProps = Pick<FormHTMLAttributes, "onSubmit" | "children">;

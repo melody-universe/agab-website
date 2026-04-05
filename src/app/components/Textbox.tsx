@@ -6,6 +6,7 @@ import { useEffect, useRef } from "preact/hooks";
 
 export function Textbox({
   autoFocus,
+  error,
   type,
   ...props
 }: TextboxProps): ComponentChild {
@@ -16,11 +17,21 @@ export function Textbox({
     }
   }, [autoFocus]);
 
-  return <input {...{ type, ...props }} className="textbox" ref={ref} />;
+  return (
+    <div className="textbox-container">
+      <input
+        {...{ type, ...props }}
+        className={`textbox${error ? " error" : ""}`}
+        ref={ref}
+      />
+      {error && <p class="error">{error}</p>}
+    </div>
+  );
 }
 
 type TextboxProps = {
   type: "text" | "password";
+  error: string | null;
 } & Pick<
   InputHTMLAttributes,
   "tabIndex" | "placeholder" | "autoFocus" | "onInput"

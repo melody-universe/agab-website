@@ -13,8 +13,19 @@ export function Page(): ComponentChild {
     <Card>
       <h1>Login</h1>
       <Form>
-        <Textbox autoFocus tabIndex={1} placeholder="Username" type="text" />
-        <Textbox tabIndex={2} placeholder="Password" type="password" />
+        <Textbox
+          autoFocus
+          tabIndex={1}
+          placeholder="Username"
+          type="text"
+          error={null}
+        />
+        <Textbox
+          tabIndex={2}
+          placeholder="Password"
+          type="password"
+          error={null}
+        />
         <div class="submit-row">
           <a tabIndex={4} href="./register">
             Register

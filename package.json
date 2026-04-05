@@ -15,6 +15,7 @@
   "dependencies": {
     "@preact/signals": "^2.9.0",
     "@responsive-image/react": "^1.1.5",
+    "drizzle-orm": "^0.45.2",
     "hono": "^4.12.10",
     "preact": "^10.29.1",
     "preact-iso": "^2.11.1",
@@ -28,6 +29,7 @@
     "@responsive-image/core": "^2.1.0",
     "@responsive-image/vite-plugin": "^2.0.2",
     "@types/node": "^25.5.2",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^10.2.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.4.0",

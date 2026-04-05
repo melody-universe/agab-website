@@ -1,3 +1,4 @@
+import { Card } from "../../components/Card";
 import { Textbox } from "../../components/Textbox";
 import "./login.scss";
 
@@ -9,9 +10,9 @@ export type LoaderData = Awaited<ReturnType<typeof loader>>;
 
 export function Page(): ComponentChild {
   return (
-    <div class="card">
+    <Card>
       <h1>Login</h1>
-      <form>
+      <form className="login-form">
         <Textbox placeholder="Username" type="text" />
         <Textbox placeholder="Password" type="password" />
         <div class="submit-row">
@@ -21,6 +22,6 @@ export function Page(): ComponentChild {
           <input type="submit" value="Go" />
         </div>
       </form>
-    </div>
+    </Card>
   );
 }

@@ -1,3 +1,4 @@
+import { Textbox } from "../../components/Textbox";
 import "./login.scss";
 
 import { ComponentChild } from "preact";
@@ -11,8 +12,8 @@ export function Page(): ComponentChild {
     <div class="card">
       <h1>Login</h1>
       <form>
-        <input placeholder="Username" type="text" />
-        <input placeholder="Password" type="password" />
+        <Textbox placeholder="Username" type="text" />
+        <Textbox placeholder="Password" type="password" />
         <div class="submit-row">
           <a tabIndex={0} href="./register">
             Register

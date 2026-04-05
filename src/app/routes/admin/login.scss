@@ -19,23 +19,6 @@
       text-shadow: 2px 2px 3px #fff;
     }
 
-    > input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      height: 46px;
-      opacity: 0.9;
-      box-shadow: 0.25em 0.25em 1em rgba(0, 0, 0, 0.2);
-      color: rgba(0, 0, 0, 0.8);
-      padding: 0 1rem;
-      border: double 3px transparent;
-      border-radius: 23px;
-      background-image:
-        linear-gradient(white, white),
-        linear-gradient(to bottom right, pink, white, skyblue);
-      background-origin: border-box;
-      background-clip: padding-box, border-box;
-    }
-
     .submit-row {
       display: flex;
       justify-content: flex-end;

@@ -1,0 +1,1 @@
+ALTER TABLE `acronyms` ADD `isDefault` integer DEFAULT false NOT NULL;

@@ -1,12 +1,11 @@
 import { Context, MiddlewareHandler } from "hono";
-import { CloudflareBindings } from "../server";
 import type { JSX } from "preact";
 import { prerender } from "preact-iso";
 import { locationStub } from "preact-iso/prerender";
 
 export function ssrWithLoader<TLoaderData extends object>(
   route: RouteModule<TLoaderData>,
-): MiddlewareHandler<{ Bindings: CloudflareBindings }> {
+): MiddlewareHandler<{ Bindings: Env }> {
   return async (context) => {
     const path = new URL(context.req.url).pathname;
     locationStub(path);
@@ -32,8 +31,6 @@ export function ssrWithLoader<TLoaderData extends object>(
 }
 
 export type RouteModule<TLoaderData> = {
-  loader(
-    context: Context<{ Bindings: CloudflareBindings }>,
-  ): Promise<TLoaderData>;
+  loader(context: Context<{ Bindings: Env }>): Promise<TLoaderData>;
   Page(props: TLoaderData): JSX.Element;
 };

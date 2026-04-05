@@ -1,11 +1,12 @@
 import "./home.scss";
 
 import { VNode } from "preact";
-import { acronyms } from "../../api/acronyms";
+import { getAcronyms } from "../../api/acronyms";
 import { BandName } from "../components/BandName";
+import { Context } from "hono";
 
-export async function loader() {
-  return { acronyms };
+export async function loader(c: Context<{ Bindings: Env }>) {
+  return { acronyms: await getAcronyms(c) };
 }
 
 export type LoaderData = Awaited<ReturnType<typeof loader>>;

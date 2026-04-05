@@ -1,9 +1,8 @@
 import { Hono } from "hono";
-import { CloudflareBindings } from "../server";
-import { acronyms } from "./acronyms";
+import { getAcronyms } from "./acronyms";
 
-const api = new Hono<{ Bindings: CloudflareBindings }>().get("/acronyms", (c) =>
-  c.json(acronyms),
+const api = new Hono<{ Bindings: Env }>().get("/acronyms", async (c) =>
+  c.json(await getAcronyms(c)),
 );
 
 export type Api = typeof api;

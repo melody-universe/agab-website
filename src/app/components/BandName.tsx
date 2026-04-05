@@ -4,7 +4,7 @@ import { ComponentChild } from "preact";
 import { useSignal, useSignalEffect } from "@preact/signals";
 
 export function BandName({ acronyms }: BandNameProps): ComponentChild {
-  const { name, next } = useController(acronyms);
+  const { name, next } = useController(acronyms[0], acronyms);
 
   return (
     <h1 className="band-name" onClick={next}>
@@ -15,8 +15,8 @@ export function BandName({ acronyms }: BandNameProps): ComponentChild {
 
 type BandNameProps = { acronyms: string[] };
 
-function useController(acronyms: string[]): Controller {
-  const name = useSignal(initialName);
+function useController(initialAcronym: string, acronyms: string[]): Controller {
+  const name = useSignal(initialAcronym);
 
   const next = useSignal(() => {
     name.value = getNext();
@@ -35,16 +35,14 @@ function useController(acronyms: string[]): Controller {
   return { next: next.value, name: name.value };
 
   function getNext(): string {
-    let next = name.value;
+    const remaining = acronyms.filter((_) => _ !== name.value);
 
-    while (next === name.value) {
-      next = acronyms[Math.floor(Math.random() * acronyms.length)];
+    if (remaining.length === 0) {
+      return name.value;
     }
 
-    return next;
+    return remaining[Math.floor(Math.random() * remaining.length)];
   }
 }
 
 type Controller = { next(): void; name: string };
-
-const initialName = "Assigned Gay At Band";

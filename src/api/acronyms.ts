@@ -1,4 +1,38 @@
-export const acronyms = [
+import { Context } from "hono";
+import { acronyms } from "../db/schema";
+import { drizzle } from "drizzle-orm/d1";
+
+export type AcronymSerialization = { version: 0; text: string };
+
+export async function getAcronyms(
+  c: Context<{ Bindings: Env }>,
+): Promise<string[]> {
+  const db = drizzle(c.env.DB);
+
+  const allAcronyms = await db.select().from(acronyms);
+  if (allAcronyms.length === 0) {
+    await Promise.all([
+      db.insert(acronyms).values({
+        content: {
+          version: 0,
+          text: canonicalBandName,
+        },
+        isDefault: true,
+      }),
+      ...seededAcronyms.map((text) =>
+        db.insert(acronyms).values({ content: { version: 0, text } }),
+      ),
+    ]);
+
+    return [canonicalBandName, ...seededAcronyms];
+  }
+
+  return allAcronyms.map(({ content }) => content.text);
+}
+
+const canonicalBandName = "Assigned Gay At Band";
+
+export const seededAcronyms = [
   "A Gay Ass-Band",
   "A Gay-Ass Band",
   "A Gay Ass Bear 🐻",
@@ -63,7 +97,6 @@ export const acronyms = [
   "Asparagus Good As Beef",
   "Ass Good Ass Bread",
   "Ass Grass Ass Brass",
-  "Assigned Gay At Band",
   "At Grammar Am Bad",
   "Ate Gluten, Achy Belly 🙁",
   "Autistic Gays Always Bounce",

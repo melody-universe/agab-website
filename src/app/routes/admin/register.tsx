@@ -127,6 +127,12 @@ function useController(): Controller {
     onSubmit(event) {
       event.preventDefault();
 
+      if (activationCode.value.length > 0) {
+        activationCodeError.value = null;
+      } else {
+        activationCodeError.value = "Required.";
+      }
+
       if (
         username.value.match(/^(?:[a-z0-9]+ ?)*[a-z0-9]$/i) &&
         username.value.length >= 1 &&
@@ -140,6 +146,18 @@ function useController(): Controller {
           "Cannot have more than one consecutive space.",
           "Must be between one and twenty characters.",
         ].join(" ");
+      }
+
+      if (password.value.length >= 6) {
+        passwordError.value = null;
+      } else {
+        passwordError.value = "Must be at least 6 characters.";
+      }
+
+      if (confirmPassword.value === password.value) {
+        confirmPasswordError.value = null;
+      } else {
+        confirmPasswordError.value = "Must match password.";
       }
     },
   };

@@ -21,4 +21,7 @@ export function Textbox({
 
 type TextboxProps = {
   type: "text" | "password";
-} & Pick<InputHTMLAttributes, "tabIndex" | "placeholder" | "autoFocus">;
+} & Pick<
+  InputHTMLAttributes,
+  "tabIndex" | "placeholder" | "autoFocus" | "onInput"
+>;

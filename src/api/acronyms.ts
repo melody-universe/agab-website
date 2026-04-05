@@ -6,7 +6,7 @@ export type AcronymSerialization = { version: 0; text: string };
 
 export async function getAcronyms(
   c: Context<{ Bindings: Env }>,
-): Promise<string[]> {
+): Promise<{ initial: string; all: string[] }> {
   const db = drizzle(c.env.DB);
 
   const allAcronyms = await db.select().from(acronyms);
@@ -24,10 +24,15 @@ export async function getAcronyms(
       ),
     ]);
 
-    return [canonicalBandName, ...seededAcronyms];
+    return {
+      initial: canonicalBandName,
+      all: [canonicalBandName, ...seededAcronyms],
+    };
   }
 
-  return allAcronyms.map(({ content }) => content.text);
+  const initial = allAcronyms.find(({ isDefault }) => isDefault)!.content.text;
+  const all = allAcronyms.map(({ content }) => content.text);
+  return { initial, all };
 }
 
 const canonicalBandName = "Assigned Gay At Band";

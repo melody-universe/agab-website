@@ -20,7 +20,7 @@ export function Page({ acronyms }: LoaderData): VNode {
         every generation in Seattle and beyond.
       </p>
       <p>What does AGAB mean? Well, it stands for:</p>
-      <BandName acronyms={acronyms} />
+      <BandName initialValue={acronyms.initial} acronyms={acronyms.all} />
       <div className="links">
         <a href="mailto:assignedgayatband@gmail.com">Contact</a>
         <a href="https://forms.gle/vtUepdLQ7rk8YT1t7" target="_blank">

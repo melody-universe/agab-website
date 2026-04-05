@@ -3,8 +3,11 @@ import "./BandName.scss";
 import { ComponentChild } from "preact";
 import { useSignal, useSignalEffect } from "@preact/signals";
 
-export function BandName({ acronyms }: BandNameProps): ComponentChild {
-  const { name, next } = useController(acronyms[0], acronyms);
+export function BandName({
+  initialValue,
+  acronyms,
+}: BandNameProps): ComponentChild {
+  const { name, next } = useController(initialValue, acronyms);
 
   return (
     <h1 className="band-name" onClick={next}>
@@ -13,7 +16,7 @@ export function BandName({ acronyms }: BandNameProps): ComponentChild {
   );
 }
 
-type BandNameProps = { acronyms: string[] };
+type BandNameProps = { initialValue: string; acronyms: string[] };
 
 function useController(initialAcronym: string, acronyms: string[]): Controller {
   const name = useSignal(initialAcronym);

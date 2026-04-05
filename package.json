@@ -7,9 +7,10 @@
     "build": "vite build",
     "cf-typegen": "wrangler types",
     "check": "tsc && vite build && wrangler deploy --dry-run",
-    "deploy": "wrangler d1 migrations apply agab --remote && wrangler deploy",
+    "deploy": "npm run migrate -- --remote && wrangler deploy",
     "dev": "vite",
     "lint": "eslint .",
+    "migrate": "wrangler d1 migrations apply agab",
     "preview": "npm run build && vite preview"
   },
   "dependencies": {

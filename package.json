@@ -9,6 +9,7 @@
     "check": "tsc && vite build && wrangler deploy --dry-run",
     "deploy": "npm run migrate -- --remote && wrangler deploy",
     "dev": "vite",
+    "generate": "drizzle-kit generate",
     "lint": "eslint .",
     "migrate": "wrangler d1 migrations apply agab",
     "preview": "npm run build && vite preview"

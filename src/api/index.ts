@@ -7,6 +7,7 @@ import { deleteCookie, getCookie } from "hono/cookie";
 import { validateSessionToken } from "./sessions";
 import { routePath } from "hono/route";
 import { getUsers } from "./users";
+import { logout } from "./logout";
 
 const api = new Hono<{ Bindings: Env }>()
   .use(csrf())
@@ -53,6 +54,10 @@ const api = new Hono<{ Bindings: Env }>()
   .get("/acronyms", async (c) => c.json(await getAcronyms(c)))
   .post("/login", async (c) => c.json(await login(c)))
   .post("/register", async (c) => c.json(await register(c)))
+  .post("/logout", async (c) => {
+    await logout(c);
+    return c.newResponse(null);
+  })
   .get("/users", async (c) => c.json(await getUsers(c)));
 
 export type Api = typeof api;

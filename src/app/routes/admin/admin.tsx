@@ -8,6 +8,8 @@ import { Spinner } from "../../components/Spinner";
 import { useSignal, useSignalEffect } from "@preact/signals";
 import { hc } from "hono/client";
 import { Api } from "../../../api";
+import { useCallback } from "preact/hooks";
+import { useLocation } from "preact-iso";
 
 export async function loader(c: Context<{ Bindings: Env }>) {
   return { users: await getUsers(c) };
@@ -33,11 +35,14 @@ export function Page(data: LoaderData): ComponentChild {
           ))}
         </ul>
       </div>
+      <button onClick={() => controller.logout()}>Logout</button>
     </Card>
   );
 }
 
 function useController(data: LoaderData): Controller {
+  const location = useLocation();
+  const isLoggingOut = useSignal(false);
   const users = useSignal(data.users ?? null);
 
   useSignalEffect(() => {
@@ -50,9 +55,21 @@ function useController(data: LoaderData): Controller {
     }
   });
 
-  return users.value
-    ? { kind: "ready", users: users.value }
+  const logout = useCallback(() => {
+    isLoggingOut.value = true;
+
+    (async () => {
+      const api = hc<Api>("/api");
+      await api.logout.$post();
+      location.route("/");
+    })();
+  }, [isLoggingOut, location]);
+
+  return !isLoggingOut.value && users.value
+    ? { kind: "ready", users: users.value, logout }
     : { kind: "loading" };
 }
 
-type Controller = { kind: "loading" } | { kind: "ready"; users: string[] };
+type Controller =
+  | { kind: "loading" }
+  | { kind: "ready"; users: string[]; logout(): void };

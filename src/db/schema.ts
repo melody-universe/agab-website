@@ -9,8 +9,7 @@ import { sql } from "drizzle-orm";
 
 export const acronyms = sqliteTable("acronyms", {
   id: integer().primaryKey({ autoIncrement: true }),
-  isDefault: integer({ mode: "boolean" }).default(false).notNull(),
-  isDefaultNew: integer("is_default", { mode: "boolean" })
+  isDefault: integer("is_default", { mode: "boolean" })
     .default(false)
     .notNull(),
   content: text({ mode: "json" }).$type<AcronymSerialization>().notNull(),

@@ -1,0 +1,1 @@
+ALTER TABLE `acronyms` DROP COLUMN `isDefault`;

@@ -68,7 +68,13 @@ export async function validateSessionToken(
   return { isSuccess: true, session, user };
 }
 
-export async function invalidateSession(sessionId: string): Promise<void> {}
+export async function invalidateSession(
+  c: Context<{ Bindings: Env }>,
+  sessionId: string,
+): Promise<void> {
+  const db = drizzle(c.env.DB);
+  await db.delete(sessions).where(eq(sessions.id, sessionId));
+}
 
 type SessionValidationResult =
   | {

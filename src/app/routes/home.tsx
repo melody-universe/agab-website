@@ -4,14 +4,26 @@ import { VNode } from "preact";
 import { getAcronyms } from "../../api/acronyms";
 import { BandName } from "../components/BandName";
 import { Context } from "hono";
+import { Spinner } from "../components/Spinner";
+import { useSignal, useSignalEffect } from "@preact/signals";
+import { hc } from "hono/client";
+import { Api } from "../../api";
 
 export async function loader(c: Context<{ Bindings: Env }>) {
   return { acronyms: await getAcronyms(c) };
 }
 
-type LoaderData = Awaited<ReturnType<typeof loader>>;
+type LoaderData = Partial<Awaited<ReturnType<typeof loader>>>;
 
-export function Page({ acronyms }: LoaderData): VNode {
+export function Page(data: LoaderData): VNode {
+  const controller = useController(data);
+
+  if (controller.kind === "loading") {
+    return <Spinner />;
+  }
+
+  const { acronyms } = controller;
+
   return (
     <>
       <img className="logo" src="/agab.svg" />
@@ -30,3 +42,25 @@ export function Page({ acronyms }: LoaderData): VNode {
     </>
   );
 }
+
+function useController(data: LoaderData): Controller {
+  const acronyms = useSignal(data.acronyms ?? null);
+
+  useSignalEffect(() => {
+    if (acronyms.value === null) {
+      (async () => {
+        const api = hc<Api>("/api");
+        const result = await api.acronyms.$get();
+        acronyms.value = await result.json();
+      })();
+    }
+  });
+
+  return acronyms.value
+    ? { kind: "ready", acronyms: acronyms.value }
+    : { kind: "loading" };
+}
+
+type Controller =
+  | ({ kind: "ready" } & Required<LoaderData>)
+  | { kind: "loading" };

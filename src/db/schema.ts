@@ -24,3 +24,11 @@ export const users = sqliteTable(
     uniqueIndex("usernameUniqueIndex").on(sql`lower(${table.username})`),
   ],
 );
+
+export const sessions = sqliteTable("sessions", {
+  id: text().primaryKey(),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => users.id),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+});

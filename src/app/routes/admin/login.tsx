@@ -1,3 +1,4 @@
+import { useLocation } from "preact-iso";
 import { hc } from "hono/client";
 import { Card } from "../../components/Card";
 import { Form } from "../../components/Form";
@@ -54,6 +55,8 @@ export function Page(): ComponentChild {
 }
 
 function useController(): Controller {
+  const location = useLocation();
+
   const isLoading = useSignal(false);
 
   const username = useSignal("");
@@ -114,12 +117,18 @@ function useController(): Controller {
         const api = hc<Api>("/api");
 
         (async () => {
-          await api.login.$post(undefined, {
+          const response = await api.login.$post(undefined, {
             init: {
               body: JSON.stringify({ username, password }),
             },
           });
-          isLoading.value = false;
+          const result = await response.json();
+
+          if (result.isSuccess) {
+            location.route("/admin");
+          } else {
+            isLoading.value = false;
+          }
         })();
       }
     },

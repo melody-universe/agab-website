@@ -5,7 +5,7 @@ import {
   uniqueIndex,
 } from "drizzle-orm/sqlite-core";
 import { AcronymSerialization } from "../api/acronyms";
-import { sql } from "drizzle-orm";
+import { InferSelectModel, sql } from "drizzle-orm";
 
 export const acronyms = sqliteTable("acronyms", {
   id: integer().primaryKey({ autoIncrement: true }),
@@ -27,6 +27,8 @@ export const users = sqliteTable(
   ],
 );
 
+export type User = InferSelectModel<typeof users>;
+
 export const sessions = sqliteTable("sessions", {
   id: text().primaryKey(),
   userId: integer("user_id")
@@ -34,3 +36,5 @@ export const sessions = sqliteTable("sessions", {
     .references(() => users.id),
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
 });
+
+export type Session = InferSelectModel<typeof sessions>;

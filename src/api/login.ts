@@ -3,10 +3,37 @@ import { Context } from "hono";
 import { users } from "../db/schema";
 import { eq, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import { createSession, generateSessionToken } from "./sessions";
+import { setCookie } from "hono/cookie";
 
 export async function login(
   c: Context<{ Bindings: Env }>,
 ): Promise<LoginResult> {
+  const verificationResult = await verifyUserPassword(c);
+
+  if (!verificationResult.isSuccess) {
+    return { isSuccess: false };
+  }
+
+  const token = generateSessionToken();
+  const session = await createSession(c, token, verificationResult.userId);
+
+  setCookie(c, "session", token, {
+    expires: session.expiresAt,
+    httpOnly: true,
+    path: "/",
+    sameSite: "Lax",
+    secure: true,
+  });
+
+  return { isSuccess: true };
+}
+
+type LoginResult = { isSuccess: boolean };
+
+async function verifyUserPassword(
+  c: Context<{ Bindings: Env }>,
+): Promise<VerifyUserPasswordResult> {
   const { username, password } = await c.req.json<LoginPayload>();
 
   const db = drizzle(c.env.DB);
@@ -33,4 +60,6 @@ export async function login(
 
 type LoginPayload = { username: string; password: string };
 
-type LoginResult = { isSuccess: true; userId: number } | { isSuccess: false };
+type VerifyUserPasswordResult =
+  | { isSuccess: true; userId: number }
+  | { isSuccess: false };

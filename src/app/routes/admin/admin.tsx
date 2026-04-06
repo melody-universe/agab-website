@@ -1,27 +1,34 @@
 import "./admin.scss";
 
-import { drizzle } from "drizzle-orm/d1";
 import { Context } from "hono";
 import { ComponentChild } from "preact";
-import { users } from "../../../db/schema";
 import { Card } from "../../components/Card";
+import { getUsers } from "../../../api/users";
+import { Spinner } from "../../components/Spinner";
+import { useSignal, useSignalEffect } from "@preact/signals";
+import { hc } from "hono/client";
+import { Api } from "../../../api";
 
 export async function loader(c: Context<{ Bindings: Env }>) {
-  const db = drizzle(c.env.DB);
-  const allUsers = await db.select().from(users);
-  return { users: allUsers.map((u) => u.username) };
+  return { users: await getUsers(c) };
 }
 
-type LoaderData = Awaited<ReturnType<typeof loader>>;
+type LoaderData = Partial<Awaited<ReturnType<typeof loader>>>;
 
-export function Page({ users }: LoaderData): ComponentChild {
+export function Page(data: LoaderData): ComponentChild {
+  const controller = useController(data);
+
+  if (controller.kind === "loading") {
+    return <Spinner />;
+  }
+
   return (
     <Card>
       <h1>Admin</h1>
       <div className="contents">
         <p>Users:</p>
         <ul>
-          {users.map((username) => (
+          {controller.users.map((username) => (
             <li key={username}>{username}</li>
           ))}
         </ul>
@@ -29,3 +36,23 @@ export function Page({ users }: LoaderData): ComponentChild {
     </Card>
   );
 }
+
+function useController(data: LoaderData): Controller {
+  const users = useSignal(data.users ?? null);
+
+  useSignalEffect(() => {
+    if (users.value === null) {
+      (async () => {
+        const api = hc<Api>("/api");
+        const response = await api.users.$get();
+        users.value = await response.json();
+      })();
+    }
+  });
+
+  return users.value
+    ? { kind: "ready", users: users.value }
+    : { kind: "loading" };
+}
+
+type Controller = { kind: "loading" } | { kind: "ready"; users: string[] };

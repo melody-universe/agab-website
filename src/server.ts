@@ -8,6 +8,7 @@ const app = new Hono<{ Bindings: Env }>();
 app.route("/api", api);
 
 routes.forEach((route) => {
+  // @ts-expect-error TODO: Improve type safety of routes.
   app.get(route.path, ssrWithLoader(route));
 });
 

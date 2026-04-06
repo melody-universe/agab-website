@@ -1,6 +1,7 @@
 import { Context } from "hono";
 import { acronyms } from "../db/schema";
 import { drizzle } from "drizzle-orm/d1";
+import { eq } from "drizzle-orm";
 
 export type AcronymSerialization = { version: 0; text: string };
 
@@ -29,6 +30,17 @@ export async function getAcronyms(
       all: [canonicalBandName, ...seededAcronyms],
     };
   }
+
+  await Promise.all(
+    allAcronyms
+      .filter((a) => a.isDefault !== a.isDefaultNew)
+      .map((a) =>
+        db
+          .update(acronyms)
+          .set({ isDefaultNew: a.isDefault })
+          .where(eq(acronyms.id, a.id)),
+      ),
+  );
 
   const initial = allAcronyms.find(({ isDefault }) => isDefault)!.content.text;
   const all = allAcronyms.map(({ content }) => content.text);

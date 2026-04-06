@@ -11,7 +11,6 @@ export async function register(c: Context<{ Bindings: Env }>): Promise<void> {
 }
 
 export type RegisterPayload = {
-  activationCode: string;
   username: string;
   password: string;
 };

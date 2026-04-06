@@ -7,47 +7,11 @@ import { Card } from "../../components/Card";
 import { Form } from "../../components/Form";
 import { Textbox } from "../../components/Textbox";
 import { useSignal } from "@preact/signals";
-import { Context } from "hono";
-import { drizzle } from "drizzle-orm/d1";
-import { activationCodes } from "../../../db/schema";
-import { gt } from "drizzle-orm";
 import { Spinner } from "../../components/Spinner";
 import { hc } from "hono/client";
 import { Api } from "../../../api";
 
-export async function loader(c: Context<{ Bindings: Env }>) {
-  const db = drizzle(c.env.DB);
-
-  const codes = await db
-    .select()
-    .from(activationCodes)
-    .where(
-      gt(
-        activationCodes.createdAt,
-        new Date(new Date().getTime() - 1000 * 60 * 60 * 24),
-      ),
-    )
-    .limit(1);
-
-  if (codes.length === 0) {
-    await db
-      .insert(activationCodes)
-      .values({ value: generateActivationCode() });
-  }
-
-  function generateActivationCode(): string {
-    const alphabet = "abcdefghijklmnopqrstuvwxyz";
-    const numbers = "0123456789";
-    const allCharacters = `${alphabet}${alphabet.toUpperCase()}${numbers}`;
-
-    let code = "";
-    for (let i = 0; i < 6; i++) {
-      code += allCharacters[Math.floor(Math.random() * allCharacters.length)];
-    }
-
-    return code;
-  }
-}
+export async function loader() {}
 
 export function Page(): ComponentChild {
   const controller = useController();
@@ -56,20 +20,12 @@ export function Page(): ComponentChild {
     return <Spinner />;
   }
 
-  const { activationCode, password, username, confirmPassword, onSubmit } =
-    controller;
+  const { password, username, confirmPassword, onSubmit } = controller;
 
   return (
     <Card>
       <h1>Register</h1>
       <Form onSubmit={onSubmit}>
-        <Textbox
-          type="text"
-          placeholder="Activation code"
-          autoFocus
-          tabIndex={1}
-          {...activationCode}
-        />
         <Textbox
           type="text"
           placeholder="Username"
@@ -103,9 +59,6 @@ export function Page(): ComponentChild {
 function useController(): Controller {
   const isLoading = useSignal(false);
 
-  const activationCode = useSignal("");
-  const activationCodeError = useSignal<null | string>(null);
-
   const username = useSignal("");
   const usernameError = useSignal<null | string>(null);
 
@@ -121,13 +74,6 @@ function useController(): Controller {
 
   return {
     kind: "ready",
-    activationCode: {
-      onInput(event) {
-        activationCode.value = event.currentTarget.value;
-      },
-      error: activationCodeError.value,
-      value: activationCode.value,
-    },
     username: {
       onInput(event) {
         username.value = event.currentTarget.value;
@@ -152,13 +98,6 @@ function useController(): Controller {
     onSubmit(event) {
       event.preventDefault();
       let isValid = true;
-
-      if (activationCode.value.length > 0) {
-        activationCodeError.value = null;
-      } else {
-        activationCodeError.value = "Required.";
-        isValid = false;
-      }
 
       if (
         username.value.match(/^(?:[a-z0-9]+ ?)*[a-z0-9]$/i) &&
@@ -197,7 +136,7 @@ function useController(): Controller {
         (async () => {
           await api.register.$post(undefined, {
             init: {
-              body: JSON.stringify({ activationCode, username, password }),
+              body: JSON.stringify({ username, password }),
             },
           });
           isLoading.value = false;
@@ -210,7 +149,6 @@ function useController(): Controller {
 type Controller =
   | {
       kind: "ready";
-      activationCode: Input;
       username: Input;
       password: Input;
       confirmPassword: Input;

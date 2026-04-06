@@ -17,6 +17,7 @@
   "dependencies": {
     "@preact/signals": "^2.9.0",
     "@responsive-image/react": "^1.1.5",
+    "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.45.2",
     "hono": "^4.12.10",
     "preact": "^10.29.1",

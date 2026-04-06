@@ -29,6 +29,20 @@
       "when": 1775449322025,
       "tag": "0003_funny_ricochet",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1775450147263,
+      "tag": "0004_ancient_sauron",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1775450543280,
+      "tag": "0005_round_falcon",
+      "breakpoints": true
     }
   ]
 }

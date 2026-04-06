@@ -1,13 +1,15 @@
 import { Context } from "hono";
+import bcrypt from "bcryptjs";
+import { drizzle } from "drizzle-orm/d1";
+import { users } from "../db/schema";
 
 export async function register(c: Context<{ Bindings: Env }>): Promise<void> {
-  const { username } = await c.req.json<RegisterPayload>();
+  const { username, password } = await c.req.json<RegisterPayload>();
 
-  console.log(`${username} attempted to register.`);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  await new Promise<void>((resolve) => {
-    setTimeout(() => resolve(), 2000);
-  });
+  const db = drizzle(c.env.DB);
+  await db.insert(users).values({ username, password: hashedPassword });
 }
 
 export type RegisterPayload = {

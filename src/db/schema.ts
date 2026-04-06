@@ -6,3 +6,9 @@ export const acronyms = sqliteTable("acronyms", {
   isDefault: integer({ mode: "boolean" }).default(false).notNull(),
   content: text({ mode: "json" }).$type<AcronymSerialization>().notNull(),
 });
+
+export const users = sqliteTable("users", {
+  id: integer().primaryKey({ autoIncrement: true }),
+  username: text().unique().notNull(),
+  password: text().notNull(),
+});

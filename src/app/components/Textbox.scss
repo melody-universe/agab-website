@@ -16,19 +16,32 @@
   height: 46px;
   opacity: 0.9;
   box-shadow: 0.25em 0.25em 1em rgba(0, 0, 0, 0.2);
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   padding: 0 1rem;
   border: double 3px transparent;
   border-radius: 23px;
   background-image:
-    linear-gradient(white, white),
+    linear-gradient(#000, #000),
     linear-gradient(to bottom right, pink, white, skyblue);
   background-origin: border-box;
   background-clip: padding-box, border-box;
 
+  @media (prefers-color-scheme: light) {
+    color: rgba(0, 0, 0, 0.8);
+    background-image:
+      linear-gradient(#fff, #fff),
+      linear-gradient(to bottom right, pink, white, skyblue);
+  }
+
   &.error {
     background-image:
-      linear-gradient(white, white),
+      linear-gradient(#000, #000),
       linear-gradient(to bottom right, red, darkred);
+
+    @media (prefers-color-scheme: light) {
+      background-image:
+        linear-gradient(#fff, #fff),
+        linear-gradient(to bottom right, red, darkred);
+    }
   }
 }

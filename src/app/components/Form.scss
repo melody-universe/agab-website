@@ -11,17 +11,26 @@
   }
 
   a {
-    color: rgba(0, 0, 120, 0.8);
+    color: rgba(216, 216, 255, 0.8);
+    text-shadow: unset;
     font-weight: 500;
     background: none;
     font-size: 1em;
     border: 0;
     margin: 0;
     padding: 0;
+
+    @media (prefers-color-scheme: light) {
+      color: rgba(0, 0, 120, 0.8);
+    }
   }
 
   a:hover {
-    color: rgba(100, 100, 200, 0.9);
+    color: rgba(164, 164, 255, 0.9);
+
+    @media (prefers-color-scheme: light) {
+      color: rgba(100, 100, 200, 0.9);
+    }
   }
 
   input[type="submit"] {
@@ -30,6 +39,12 @@
     width: fit-content;
     align-self: flex-end;
     border-radius: 23px;
+    color: #fff;
     background: linear-gradient(to bottom right, #320064, #0000aa);
+
+    @media (prefers-color-scheme: light) {
+      color: #000;
+      background: linear-gradient(to bottom right, #ffe5ff, #d8f7fa);
+    }
   }
 }

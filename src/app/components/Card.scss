@@ -2,15 +2,25 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
-  color: rgba(0, 0, 0, 0.85);
-  background: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 3rem 3rem rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 3rem 3rem rgba(0, 0, 0, 0.4);
   width: 320px;
   padding: 0;
+
+  @media (prefers-color-scheme: light) {
+    color: rgba(0, 0, 0, 0.85);
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 3rem 3rem rgba(255, 255, 255, 0.4);
+  }
 
   h1 {
     font-size: 1.5em;
     padding: 0;
-    text-shadow: 2px 2px 3px #fff;
+    text-shadow: 2px 2px 3px #000;
+
+    @media (prefers-color-scheme: light) {
+      text-shadow: 2px 2px 3px #fff;
+    }
   }
 }

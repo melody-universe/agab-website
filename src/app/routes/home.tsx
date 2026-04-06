@@ -9,7 +9,7 @@ export async function loader(c: Context<{ Bindings: Env }>) {
   return { acronyms: await getAcronyms(c) };
 }
 
-export type LoaderData = Awaited<ReturnType<typeof loader>>;
+type LoaderData = Awaited<ReturnType<typeof loader>>;
 
 export function Page({ acronyms }: LoaderData): VNode {
   return (

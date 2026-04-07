@@ -1,4 +1,4 @@
-import "./BandName.scss";
+import styles from "./BandName.module.scss";
 
 import { ComponentChild } from "preact";
 import { useSignal, useSignalEffect } from "@preact/signals";
@@ -10,7 +10,7 @@ export function BandName({
   const { name, next } = useController(initialValue, acronyms);
 
   return (
-    <h1 className="band-name" onClick={next}>
+    <h1 className={styles.bandName} onClick={next}>
       {name}
     </h1>
   );

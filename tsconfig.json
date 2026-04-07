@@ -6,6 +6,14 @@
     "strict": true,
     "skipLibCheck": true,
     "lib": ["ESNext"],
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "camelCaseOnly"
+        }
+      }
+    ],
     "types": ["vite/client"],
     "jsx": "react-jsx",
     "jsxImportSource": "preact"

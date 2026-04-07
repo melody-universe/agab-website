@@ -5,6 +5,7 @@ import { cloudflare } from "@cloudflare/vite-plugin";
 import { setupPlugins as responsiveImage } from "@responsive-image/vite-plugin";
 
 export default defineConfig({
+  css: { modules: { localsConvention: "camelCaseOnly" } },
   plugins: [
     preact(),
     responsiveImage({ include: /^.*\/assets\/.+\.png\?.*responsive$/ }),

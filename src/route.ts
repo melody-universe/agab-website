@@ -1,4 +1,4 @@
-import { Context } from "hono";
+import { Context, MiddlewareHandler } from "hono";
 import type { ComponentChild } from "preact";
 
 export type Route<TLoaderData> =
@@ -13,7 +13,10 @@ type RouteWithoutLoader = {
   loader?: never;
   Page(): ComponentChild;
 } & BaseRoute;
-type BaseRoute = { path: string };
+type BaseRoute = {
+  middleware?: MiddlewareHandler<{ Bindings: Env }>;
+  path: string;
+};
 
 export type InitialData<TRoute extends RouteWithLoader<unknown>> =
   | {

@@ -11,8 +11,14 @@ import { Api } from "../../../api";
 import { useCallback } from "preact/hooks";
 import { useLocation } from "preact-iso";
 import { noPreloadedData, NoPreloadedData } from "../../../route";
+import { requireRole } from "../../../lib/requireRole";
+import { Role } from "../../../lib/getRole";
 
 export const path = "/admin";
+export const middleware = requireRole(Role.Admin, {
+  response: (c) => c.redirect("/admin/login"),
+  statusCode: 401,
+});
 
 export async function loader(c: Context<{ Bindings: Env }>) {
   return { users: await getUsers(c) };

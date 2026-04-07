@@ -11,8 +11,13 @@ import { Spinner } from "../../components/Spinner";
 import { hc } from "hono/client";
 import { Api } from "../../../api";
 import { useLocation } from "preact-iso";
+import { Role } from "../../../lib/getRole";
+import { requireRole } from "../../../lib/requireRole";
 
 export const path = "/admin/register";
+export const middleware = requireRole(Role.Anonymous, {
+  response: (c) => c.redirect("/admin"),
+});
 
 export function Page(): ComponentChild {
   const controller = useController();

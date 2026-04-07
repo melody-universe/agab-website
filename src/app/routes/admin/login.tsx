@@ -12,8 +12,13 @@ import {
 import { Api } from "../../../api";
 import { useSignal } from "@preact/signals";
 import { Spinner } from "../../components/Spinner";
+import { Role } from "../../../lib/getRole";
+import { requireRole } from "../../../lib/requireRole";
 
 export const path = "/admin/login";
+export const middleware = requireRole(Role.Anonymous, {
+  response: (c) => c.redirect("/admin"),
+});
 
 export function Page(): ComponentChild {
   const controller = useController();

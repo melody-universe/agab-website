@@ -13,9 +13,7 @@ import { Api } from "../../../api";
 import { useSignal } from "@preact/signals";
 import { Spinner } from "../../components/Spinner";
 
-export async function loader() {}
-
-export type LoaderData = Awaited<ReturnType<typeof loader>>;
+export const path = "/admin/login";
 
 export function Page(): ComponentChild {
   const controller = useController();

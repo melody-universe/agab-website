@@ -10,6 +10,9 @@ import { hc } from "hono/client";
 import { Api } from "../../../api";
 import { useCallback } from "preact/hooks";
 import { useLocation } from "preact-iso";
+import { noPreloadedData, NoPreloadedData } from "../../../route";
+
+export const path = "/admin";
 
 export async function loader(c: Context<{ Bindings: Env }>) {
   return { users: await getUsers(c) };
@@ -17,7 +20,11 @@ export async function loader(c: Context<{ Bindings: Env }>) {
 
 type LoaderData = Partial<Awaited<ReturnType<typeof loader>>>;
 
-export function Page(data: LoaderData): ComponentChild {
+export function Page({
+  data = noPreloadedData,
+}: {
+  data: LoaderData | NoPreloadedData;
+}): ComponentChild {
   const controller = useController(data);
 
   if (controller.kind === "loading") {
@@ -40,10 +47,10 @@ export function Page(data: LoaderData): ComponentChild {
   );
 }
 
-function useController(data: LoaderData): Controller {
+function useController(data: LoaderData | NoPreloadedData): Controller {
   const location = useLocation();
   const isLoggingOut = useSignal(false);
-  const users = useSignal(data.users ?? null);
+  const users = useSignal(data === noPreloadedData ? null : data.users);
 
   useSignalEffect(() => {
     if (users.value === null) {

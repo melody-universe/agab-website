@@ -12,7 +12,7 @@ import { hc } from "hono/client";
 import { Api } from "../../../api";
 import { useLocation } from "preact-iso";
 
-export async function loader() {}
+export const path = "/admin/register";
 
 export function Page(): ComponentChild {
   const controller = useController();

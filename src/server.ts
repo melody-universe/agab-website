@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import api from "./api";
 import { routes } from "./routes";
-import { ssrWithLoader } from "./lib/ssr";
+import { ssr } from "./lib/ssr";
 import { deleteCookie, getCookie } from "hono/cookie";
 import { validateSessionToken } from "./api/sessions";
 
@@ -43,9 +43,6 @@ app.use("/admin/*", async (c, next) => {
   }
 });
 
-routes.forEach((route) => {
-  // @ts-expect-error TODO: Improve type safety of routes.
-  app.get(route.path, ssrWithLoader(route));
-});
+routes.forEach((route) => app.get(route.path, ssr(route)));
 
 export default app;

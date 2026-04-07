@@ -8,6 +8,9 @@ import { Spinner } from "../components/Spinner";
 import { useSignal, useSignalEffect } from "@preact/signals";
 import { hc } from "hono/client";
 import { Api } from "../../api";
+import { noPreloadedData, NoPreloadedData } from "../../route";
+
+export const path = "/";
 
 export async function loader(c: Context<{ Bindings: Env }>) {
   return { acronyms: await getAcronyms(c) };
@@ -15,7 +18,11 @@ export async function loader(c: Context<{ Bindings: Env }>) {
 
 type LoaderData = Partial<Awaited<ReturnType<typeof loader>>>;
 
-export function Page(data: LoaderData): VNode {
+export function Page({
+  data = noPreloadedData,
+}: {
+  data: LoaderData | NoPreloadedData;
+}): VNode {
   const controller = useController(data);
 
   if (controller.kind === "loading") {
@@ -43,8 +50,8 @@ export function Page(data: LoaderData): VNode {
   );
 }
 
-function useController(data: LoaderData): Controller {
-  const acronyms = useSignal(data.acronyms ?? null);
+function useController(data: LoaderData | NoPreloadedData): Controller {
+  const acronyms = useSignal(data === noPreloadedData ? null : data.acronyms);
 
   useSignalEffect(() => {
     if (acronyms.value === null) {

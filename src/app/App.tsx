@@ -1,14 +1,20 @@
 import { LocationProvider, Route, Router } from "preact-iso";
 import { routes } from "../routes";
+import {
+  InitialData,
+  noPreloadedData,
+  NoPreloadedData,
+  RouteWithLoader,
+} from "../route";
 
-// Maybe we'll come back and figure out how to do this proper-like.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getInitialData(): any {
+function getInitialData():
+  | InitialData<RouteWithLoader<unknown>>
+  | NoPreloadedData {
   if (typeof window !== "undefined" && "__INITIAL_DATA__" in window) {
-    return window.__INITIAL_DATA__;
+    return window.__INITIAL_DATA__ as InitialData<RouteWithLoader<unknown>>;
   }
 
-  return {};
+  return noPreloadedData;
 }
 
 export default function App() {
@@ -17,13 +23,25 @@ export default function App() {
   return (
     <LocationProvider>
       <Router>
-        {routes.map(({ Page, path }) => (
-          <Route
-            key={path}
-            path={path}
-            component={() => <Page {...initialData} />}
-          />
-        ))}
+        {routes.map(({ Page, path }) => {
+          if (initialData !== noPreloadedData && initialData.path === path) {
+            return (
+              <Route
+                key={path}
+                path={path}
+                component={() => <Page data={initialData.data} />}
+              />
+            );
+          } else {
+            return (
+              <Route
+                key={path}
+                path={path}
+                component={() => <Page data={noPreloadedData} />}
+              />
+            );
+          }
+        })}
       </Router>
     </LocationProvider>
   );

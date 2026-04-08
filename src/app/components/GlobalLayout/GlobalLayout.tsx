@@ -9,7 +9,7 @@ export function GlobalLayout({
 }): ComponentChild {
   return (
     <div className={styles.container}>
-      <div className={styles.navbar}>
+      <div key="navbar" className={styles.navbar}>
         <a href="https://www.instagram.com/assignedgayatband/" target="_blank">
           <FaInstagram className={styles.icon} />
         </a>

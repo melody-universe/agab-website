@@ -29,7 +29,7 @@ export function Page(): ComponentChild {
   const { password, username, confirmPassword, onSubmit } = controller;
 
   return (
-    <div style={{ display: "flex", height: "100%" }}>
+    <div style={{ display: "flex", height: "100%", justifyContent: "center" }}>
       <Card>
         <h1>Register</h1>
         <Form onSubmit={onSubmit}>

@@ -1,4 +1,4 @@
-import "./home.scss";
+import styles from "./home.module.scss";
 
 import { VNode } from "preact";
 import { getAcronyms } from "../../api/acronyms";
@@ -32,21 +32,32 @@ export function Page({
   const { acronyms } = controller;
 
   return (
-    <>
-      <img className="logo" src="/agab.svg" />
-      <p>
+    <div className={styles.container}>
+      <img className={styles.logo} src="/agab.svg" />
+      <p className={styles.paragraph}>
         A queer joy rebellion playing brass bangers for the theys and gays of
         every generation in Seattle and beyond.
       </p>
-      <p>What does AGAB mean? Well, it stands for:</p>
+      <p className={styles.paragraph}>
+        What does AGAB mean? Well, it stands for:
+      </p>
       <BandName initialValue={acronyms.initial} acronyms={acronyms.all} />
-      <div className="links">
-        <a href="mailto:assignedgayatband@gmail.com">Contact</a>
-        <a href="https://forms.gle/vtUepdLQ7rk8YT1t7" target="_blank">
+      <div>
+        <a
+          className={styles.callToAction}
+          href="mailto:assignedgayatband@gmail.com"
+        >
+          Contact
+        </a>
+        <a
+          className={styles.callToAction}
+          href="https://forms.gle/vtUepdLQ7rk8YT1t7"
+          target="_blank"
+        >
           Interested in Joining?
         </a>
       </div>
-    </>
+    </div>
   );
 }
 

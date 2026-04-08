@@ -1,4 +1,4 @@
-import "./admin.scss";
+import styles from "./admin.module.scss";
 
 import { Context } from "hono";
 import { ComponentChild } from "preact";
@@ -38,18 +38,22 @@ export function Page({
   }
 
   return (
-    <Card>
-      <h1>Admin</h1>
-      <div className="contents">
-        <p>Users:</p>
-        <ul>
-          {controller.users.map((username) => (
-            <li key={username}>{username}</li>
-          ))}
-        </ul>
-      </div>
-      <button onClick={() => controller.logout()}>Logout</button>
-    </Card>
+    <div style={{ display: "flex", height: "100%", justifyContent: "center" }}>
+      <Card>
+        <h1>Admin</h1>
+        <div>
+          <p>Users:</p>
+          <ul>
+            {controller.users.map((username) => (
+              <li key={username}>{username}</li>
+            ))}
+          </ul>
+        </div>
+        <button className={styles.button} onClick={() => controller.logout()}>
+          Logout
+        </button>
+      </Card>
+    </div>
   );
 }
 

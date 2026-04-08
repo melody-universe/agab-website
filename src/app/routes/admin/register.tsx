@@ -29,36 +29,38 @@ export function Page(): ComponentChild {
   const { password, username, confirmPassword, onSubmit } = controller;
 
   return (
-    <Card>
-      <h1>Register</h1>
-      <Form onSubmit={onSubmit}>
-        <Textbox
-          type="text"
-          placeholder="Username"
-          tabIndex={2}
-          {...username}
-        />
-        <Textbox
-          type="password"
-          placeholder="Password"
-          tabIndex={3}
-          {...password}
-        />
-        <Textbox
-          type="password"
-          placeholder="Confirm password"
-          tabIndex={4}
-          {...confirmPassword}
-        />
+    <div style={{ display: "flex", height: "100%" }}>
+      <Card>
+        <h1>Register</h1>
+        <Form onSubmit={onSubmit}>
+          <Textbox
+            type="text"
+            placeholder="Username"
+            tabIndex={2}
+            {...username}
+          />
+          <Textbox
+            type="password"
+            placeholder="Password"
+            tabIndex={3}
+            {...password}
+          />
+          <Textbox
+            type="password"
+            placeholder="Confirm password"
+            tabIndex={4}
+            {...confirmPassword}
+          />
 
-        <div class="submit-row">
-          <a tabIndex={6} href="./login">
-            Login
-          </a>
-          <input tabIndex={5} type="submit" value="Go" />
-        </div>
-      </Form>
-    </Card>
+          <div class="submit-row">
+            <a tabIndex={6} href="./login">
+              Login
+            </a>
+            <input tabIndex={5} type="submit" value="Go" />
+          </div>
+        </Form>
+      </Card>
+    </div>
   );
 }
 

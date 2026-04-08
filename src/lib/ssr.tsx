@@ -2,6 +2,7 @@ import { MiddlewareHandler } from "hono";
 import { prerender } from "preact-iso";
 import { locationStub, PrerenderResult } from "preact-iso/prerender";
 import { Route, InitialData } from "../route";
+import App from "../app/App";
 
 export function ssr<TLoaderData>(
   route: Route<TLoaderData>,
@@ -13,20 +14,23 @@ export function ssr<TLoaderData>(
     let html: string;
     if (route.loader) {
       const data = await route.loader(context);
+      const initialData: InitialData<typeof route> = {
+        path: route.path,
+        data,
+      };
 
-      const result = await prerender(<route.Page data={data} />);
+      const result = await prerender(<App initialData={initialData} />);
 
       html = await wrapWithHtmlTemplate(result);
 
       html = html.replace(
         "</head>",
-        `<script>window.__INITIAL_DATA__=${JSON.stringify({
-          path: route.path,
-          data,
-        } satisfies InitialData<typeof route>)}</script></head>`,
+        `<script>window.__INITIAL_DATA__=${JSON.stringify(
+          initialData,
+        )}</script></head>`,
       );
     } else {
-      const result = await prerender(<route.Page />);
+      const result = await prerender(<App />);
 
       html = await wrapWithHtmlTemplate(result);
     }

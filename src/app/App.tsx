@@ -18,8 +18,8 @@ function getInitialData():
   return noPreloadedData;
 }
 
-export default function App() {
-  const initialData = getInitialData();
+export default function App({ initialData }: AppProps) {
+  initialData ||= getInitialData();
 
   return (
     <GlobalLayout>
@@ -49,3 +49,5 @@ export default function App() {
     </GlobalLayout>
   );
 }
+
+type AppProps = { initialData?: InitialData<RouteWithLoader<unknown>> };

@@ -20,23 +20,24 @@
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  inset: 0;
+
+  // TODO: Move all of this _elsewhere_.
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1em;
 }
 
 p {
   max-width: 800px;
   margin-block-start: 1em;
   margin-block-end: 1em;
-  font-weight: 500;
+  width: 100%;
   font-size: 1.5em;
   color: #c590f6;
   text-shadow: 2px 2px 3px #000;
-  text-decoration: inherit;
 
   @media (prefers-color-scheme: light) {
     color: #340165;
@@ -71,24 +72,13 @@ a {
   }
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  min-height: calc(var(--vh, 1vh) * 100);
+html {
+  min-height: 100%;
 }
 
-button {
-  cursor: pointer;
-  border-radius: 10px;
-  font-size: 1em;
-  margin: 10px;
-  padding: 8px;
-  background: #320064;
-  border-style: none;
-  color: white;
+body {
+  min-width: 320px;
+  height: 100%;
 }
 
 @font-face {

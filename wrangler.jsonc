@@ -46,7 +46,7 @@
     {
       "binding": "DB",
       "database_name": "agab",
-      "database_id": "7e2edea0-830e-4a3e-b113-518ea1b7b108",
+      "database_id": "20352a20-f4ad-473a-b81f-68c0041d569f",
       "migrations_dir": "drizzle",
     },
   ],

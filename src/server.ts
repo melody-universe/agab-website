@@ -2,8 +2,11 @@ import { Hono } from "hono";
 import api from "./api";
 import { routes } from "./routes";
 import { ssr } from "./lib/ssr";
+import { csrf } from "hono/csrf";
 
 const app = new Hono<{ Bindings: Env }>();
+
+app.use(csrf());
 
 app.route("/api", api);
 

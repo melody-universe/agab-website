@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { getAcronyms } from "./acronyms";
 import { register } from "./register";
-import { csrf } from "hono/csrf";
 import { login } from "./login";
 import { getUsers } from "./users";
 import { logout } from "./logout";
@@ -9,7 +8,6 @@ import { Role } from "../lib/getRole";
 import { requireRole } from "../lib/requireRole";
 
 const api = new Hono<{ Bindings: Env }>()
-  .use(csrf())
   .get("/acronyms", async (c) => c.json(await getAcronyms(c)))
   .post("/login", requireRole(Role.Anonymous, { statusCode: 403 }), async (c) =>
     c.json(await login(c)),

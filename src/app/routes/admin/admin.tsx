@@ -21,6 +21,7 @@ import { noPreloadedData, NoPreloadedData } from "../../../route";
 import { requireRole } from "../../../lib/requireRole";
 import { Role } from "../../../lib/getRole";
 import { CenteredLayout } from "../../components/CenteredLayout";
+import { Link } from "../../components/Link";
 
 export const path = "/admin";
 export const middleware = requireRole(Role.Admin, {
@@ -57,12 +58,12 @@ export function Page({
             </p>
             <p>
               To get involved, check out our{" "}
-              <a
+              <Link
+                tabIndex={1}
                 href="https://github.com/assigned-gay-at-band/website"
-                target="_blank"
               >
                 GitHub repo
-              </a>
+              </Link>
               .
             </p>
           </CardDescription>
@@ -70,6 +71,7 @@ export function Page({
             <button
               className={styles.button}
               onClick={() => controller.logout()}
+              tabIndex={2}
             >
               Logout
             </button>

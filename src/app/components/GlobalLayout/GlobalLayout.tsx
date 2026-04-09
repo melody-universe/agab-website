@@ -2,6 +2,7 @@ import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa6";
 import styles from "./GlobalLayout.module.scss";
 import { ComponentChild, ComponentChildren } from "preact";
 import { IconType } from "react-icons";
+import { Link } from "../Link";
 
 export function GlobalLayout({
   children,
@@ -12,9 +13,9 @@ export function GlobalLayout({
     <div className={styles.container}>
       <div className={styles.navbar}>
         {links.map(({ href, Icon }) => (
-          <a href={href} target="_blank">
+          <Link key={href} href={href}>
             <Icon className={styles.icon} />
-          </a>
+          </Link>
         ))}
       </div>
       {children}

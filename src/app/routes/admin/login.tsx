@@ -25,6 +25,7 @@ import { Spinner } from "../../components/Spinner";
 import { Role } from "../../../lib/getRole";
 import { requireRole } from "../../../lib/requireRole";
 import { CenteredLayout } from "../../components/CenteredLayout";
+import { Link } from "../../components/Link";
 
 export const path = "/admin/login";
 export const middleware = requireRole(Role.Anonymous, {
@@ -49,9 +50,9 @@ export function Page(): ComponentChild {
             If you are a band member, enter your credentials to manage the site.
           </CardDescription>
           <CardAction>
-            <a tabIndex={4} href="./register">
+            <Link tabIndex={4} href="./register">
               Register
-            </a>
+            </Link>
           </CardAction>
         </CardHeader>
         <Form onSubmit={onSubmit}>

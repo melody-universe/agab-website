@@ -9,6 +9,7 @@ import { useSignal, useSignalEffect } from "@preact/signals";
 import { hc } from "hono/client";
 import { Api } from "../../api";
 import { noPreloadedData, NoPreloadedData } from "../../route";
+import { Link } from "../components/Link";
 
 export const path = "/";
 
@@ -43,19 +44,18 @@ export function Page({
       </p>
       <BandName initialValue={acronyms.initial} acronyms={acronyms.all} />
       <div>
-        <a
+        <Link
           className={styles.callToAction}
           href="mailto:assignedgayatband@gmail.com"
         >
           Contact
-        </a>
-        <a
+        </Link>
+        <Link
           className={styles.callToAction}
           href="https://forms.gle/vtUepdLQ7rk8YT1t7"
-          target="_blank"
         >
           Interested in Joining?
-        </a>
+        </Link>
       </div>
     </div>
   );

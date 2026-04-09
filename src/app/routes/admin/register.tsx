@@ -24,6 +24,7 @@ import { useLocation } from "preact-iso";
 import { Role } from "../../../lib/getRole";
 import { requireRole } from "../../../lib/requireRole";
 import { CenteredLayout } from "../../components/CenteredLayout";
+import { Link } from "../../components/Link";
 
 export const path = "/admin/register";
 export const middleware = requireRole(Role.Anonymous, {
@@ -49,9 +50,9 @@ export function Page(): ComponentChild {
             us manage the website.
           </CardDescription>
           <CardAction>
-            <a tabIndex={6} href="./login">
+            <Link tabIndex={6} href="./login">
               Login
-            </a>
+            </Link>
           </CardAction>
         </CardHeader>
         <Form onSubmit={onSubmit}>

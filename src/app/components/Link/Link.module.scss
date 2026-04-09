@@ -33,7 +33,42 @@
     }
   }
 
-  &:hover {
-    text-decoration: underline;
+  &.default {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &.button {
+    align-items: center;
+    background-clip: padding-box;
+    display: inline-flex;
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    gap: 0.375rem;
+    height: 2rem;
+    justify-content: center;
+    line-height: 1.25rem;
+    outline-style: none;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    white-space: nowrap;
+
+    background-color: oklch(0.922 0 0);
+    color: oklch(0.205 0 0);
+
+    @media (prefers-color-scheme: light) {
+      background-color: oklch(0.205 0 0);
+      color: oklch(0.985 0 0);
+    }
+
+    &:hover {
+      background-color: oklch(0.922 0 0 / 0.8);
+
+      @media (prefers-color-scheme: light) {
+        background-color: oklch(0.205 0 0 / 0.8);
+      }
+    }
   }
 }

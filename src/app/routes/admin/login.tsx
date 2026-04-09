@@ -50,7 +50,7 @@ export function Page(): ComponentChild {
             If you are a band member, enter your credentials to manage the site.
           </CardDescription>
           <CardAction>
-            <Link tabIndex={4} href="./register">
+            <Link tabIndex={4} href="./register" variant="button">
               Register
             </Link>
           </CardAction>

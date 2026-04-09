@@ -1,4 +1,4 @@
-import style from "./Link.module.scss";
+import styles from "./Link.module.scss";
 
 import clsx from "clsx";
 import { AnchorHTMLAttributes, ComponentChild } from "preact";
@@ -8,6 +8,7 @@ export function Link({
   className,
   href,
   children,
+  variant = "default",
   ...props
 }: LinkProps): ComponentChild {
   const isExternal = useMemo(
@@ -17,7 +18,7 @@ export function Link({
 
   return (
     <a
-      className={clsx(style.link, className)}
+      className={clsx(styles.link, styles[variant], className)}
       href={href}
       {...(isExternal && { target: "_blank" })}
       {...props}
@@ -27,7 +28,7 @@ export function Link({
   );
 }
 
-type LinkProps = Pick<
+type LinkProps = { variant?: "default" | "button" } & Pick<
   AnchorHTMLAttributes,
   "children" | "className" | "href" | "tabIndex"
 >;

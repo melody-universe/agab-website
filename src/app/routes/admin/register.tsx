@@ -50,7 +50,7 @@ export function Page(): ComponentChild {
             us manage the website.
           </CardDescription>
           <CardAction>
-            <Link tabIndex={6} href="./login">
+            <Link tabIndex={6} href="./login" variant="button">
               Login
             </Link>
           </CardAction>

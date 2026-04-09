@@ -1,9 +1,19 @@
+import styles from "./register.module.scss";
+
 import {
   ComponentChild,
   FormHTMLAttributes,
   InputHTMLAttributes,
 } from "preact";
-import { Card } from "../../components/Card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../components/Card";
 import { Form } from "../../components/Form";
 import { Textbox } from "../../components/Textbox";
 import { useSignal } from "@preact/signals";
@@ -13,6 +23,7 @@ import { Api } from "../../../api";
 import { useLocation } from "preact-iso";
 import { Role } from "../../../lib/getRole";
 import { requireRole } from "../../../lib/requireRole";
+import { CenteredLayout } from "../../components/CenteredLayout";
 
 export const path = "/admin/register";
 export const middleware = requireRole(Role.Anonymous, {
@@ -29,38 +40,47 @@ export function Page(): ComponentChild {
   const { password, username, confirmPassword, onSubmit } = controller;
 
   return (
-    <div style={{ display: "flex", height: "100%", justifyContent: "center" }}>
-      <Card>
-        <h1>Register</h1>
-        <Form onSubmit={onSubmit}>
-          <Textbox
-            type="text"
-            placeholder="Username"
-            tabIndex={2}
-            {...username}
-          />
-          <Textbox
-            type="password"
-            placeholder="Password"
-            tabIndex={3}
-            {...password}
-          />
-          <Textbox
-            type="password"
-            placeholder="Confirm password"
-            tabIndex={4}
-            {...confirmPassword}
-          />
-
-          <div class="submit-row">
+    <CenteredLayout>
+      <Card className={styles.card}>
+        <CardHeader>
+          <CardTitle>Register</CardTitle>
+          <CardDescription>
+            If you are a band member, fill out the form below to start helping
+            us manage the website.
+          </CardDescription>
+          <CardAction>
             <a tabIndex={6} href="./login">
               Login
             </a>
+          </CardAction>
+        </CardHeader>
+        <Form onSubmit={onSubmit}>
+          <CardContent>
+            <Textbox
+              type="text"
+              placeholder="Username"
+              tabIndex={2}
+              {...username}
+            />
+            <Textbox
+              type="password"
+              placeholder="Password"
+              tabIndex={3}
+              {...password}
+            />
+            <Textbox
+              type="password"
+              placeholder="Confirm password"
+              tabIndex={4}
+              {...confirmPassword}
+            />
+          </CardContent>
+          <CardFooter>
             <input tabIndex={5} type="submit" value="Go" />
-          </div>
+          </CardFooter>
         </Form>
       </Card>
-    </div>
+    </CenteredLayout>
   );
 }
 

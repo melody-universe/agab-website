@@ -2,7 +2,14 @@ import styles from "./admin.module.scss";
 
 import { Context } from "hono";
 import { ComponentChild } from "preact";
-import { Card } from "../../components/Card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/Card";
 import { getUsers } from "../../../api/users";
 import { Spinner } from "../../components/Spinner";
 import { useSignal, useSignalEffect } from "@preact/signals";
@@ -13,6 +20,7 @@ import { useLocation } from "preact-iso";
 import { noPreloadedData, NoPreloadedData } from "../../../route";
 import { requireRole } from "../../../lib/requireRole";
 import { Role } from "../../../lib/getRole";
+import { CenteredLayout } from "../../components/CenteredLayout";
 
 export const path = "/admin";
 export const middleware = requireRole(Role.Admin, {
@@ -38,22 +46,45 @@ export function Page({
   }
 
   return (
-    <div style={{ display: "flex", height: "100%", justifyContent: "center" }}>
-      <Card>
-        <h1>Admin</h1>
-        <div>
+    <CenteredLayout>
+      <Card className={styles.card}>
+        <CardHeader>
+          <CardTitle>Admin</CardTitle>
+          <CardDescription className={styles.cardDescription}>
+            <p>
+              Here is the administrative dashboard for the website. Right now,
+              there isn't much, but we'll be adding more soon.
+            </p>
+            <p>
+              To get involved, check out our{" "}
+              <a
+                href="https://github.com/assigned-gay-at-band/website"
+                target="_blank"
+              >
+                GitHub repo
+              </a>
+              .
+            </p>
+          </CardDescription>
+          <CardAction>
+            <button
+              className={styles.button}
+              onClick={() => controller.logout()}
+            >
+              Logout
+            </button>
+          </CardAction>
+        </CardHeader>
+        <CardContent>
           <p>Users:</p>
           <ul>
             {controller.users.map((username) => (
               <li key={username}>{username}</li>
             ))}
           </ul>
-        </div>
-        <button className={styles.button} onClick={() => controller.logout()}>
-          Logout
-        </button>
+        </CardContent>
       </Card>
-    </div>
+    </CenteredLayout>
   );
 }
 

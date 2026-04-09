@@ -1,6 +1,16 @@
+import styles from "./login.module.scss";
+
 import { useLocation } from "preact-iso";
 import { hc } from "hono/client";
-import { Card } from "../../components/Card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../components/Card";
 import { Form } from "../../components/Form";
 import { Textbox } from "../../components/Textbox";
 
@@ -14,6 +24,7 @@ import { useSignal } from "@preact/signals";
 import { Spinner } from "../../components/Spinner";
 import { Role } from "../../../lib/getRole";
 import { requireRole } from "../../../lib/requireRole";
+import { CenteredLayout } from "../../components/CenteredLayout";
 
 export const path = "/admin/login";
 export const middleware = requireRole(Role.Anonymous, {
@@ -30,30 +41,41 @@ export function Page(): ComponentChild {
   const { onSubmit, username, password } = controller;
 
   return (
-    <Card>
-      <h1>Login</h1>
-      <Form onSubmit={onSubmit}>
-        <Textbox
-          autoFocus
-          tabIndex={1}
-          placeholder="Username"
-          type="text"
-          {...username}
-        />
-        <Textbox
-          tabIndex={2}
-          placeholder="Password"
-          type="password"
-          {...password}
-        />
-        <div class="submit-row">
-          <a tabIndex={4} href="./register">
-            Register
-          </a>
-          <input tabIndex={3} type="submit" value="Go" />
-        </div>
-      </Form>
-    </Card>
+    <CenteredLayout>
+      <Card className={styles.card}>
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>
+            If you are a band member, enter your credentials to manage the site.
+          </CardDescription>
+          <CardAction>
+            <a tabIndex={4} href="./register">
+              Register
+            </a>
+          </CardAction>
+        </CardHeader>
+        <Form onSubmit={onSubmit}>
+          <CardContent>
+            <Textbox
+              autoFocus
+              tabIndex={1}
+              placeholder="Username"
+              type="text"
+              {...username}
+            />
+            <Textbox
+              tabIndex={2}
+              placeholder="Password"
+              type="password"
+              {...password}
+            />
+          </CardContent>
+          <CardFooter>
+            <input tabIndex={3} type="submit" value="Go" />
+          </CardFooter>
+        </Form>
+      </Card>
+    </CenteredLayout>
   );
 }
 

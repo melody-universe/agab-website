@@ -1,32 +1,100 @@
 .card {
-  margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 1em;
-  color: rgba(255, 255, 255, 0.85);
-  background: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 3rem 3rem rgba(0, 0, 0, 0.4);
-  width: 320px;
-  padding: 0;
+  overflow: hidden;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  gap: 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+
+  box-shadow: 0 0 0 1px oklch(0.556 0 0);
+  color: oklch(0.985 0 0);
+  background: oklch(0.205 0 0);
 
   @media (prefers-color-scheme: light) {
-    color: rgba(0, 0, 0, 0.85);
-    background: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 0 3rem 3rem rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 1px oklch(0.708 0 0);
+    color: oklch(0.145 0 0);
+    background: oklch(1 0 0);
   }
 
-  h1 {
-    font-size: 1.5em;
-    padding: 0;
-    text-shadow: 2px 2px 3px #000;
-
-    @media (prefers-color-scheme: light) {
-      text-shadow: 2px 2px 3px #fff;
-    }
+  &:has([data-slot="card-footer"]) {
+    padding-bottom: 0;
   }
 
-  p {
-    font-size: 1em;
-    margin: 0;
+  // color: rgba(255, 255, 255, 0.85);
+  // background: rgba(0, 0, 0, 0.4);
+  // box-shadow: 0 0 3rem 3rem rgba(0, 0, 0, 0.4);
+
+  // @media (prefers-color-scheme: light) {
+  //   color: rgba(0, 0, 0, 0.85);
+  //   background: rgba(255, 255, 255, 0.4);
+  //   box-shadow: 0 0 3rem 3rem rgba(255, 255, 255, 0.4);
+  // }
+}
+
+.card-header {
+  container-name: card-header;
+  container-type: inline-size;
+
+  display: grid;
+  grid-auto-rows: min;
+  gap: 0.25rem;
+  align-items: flex-start;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+
+  &:has([data-slot="card-action"]) {
+    grid-column: 1fr auto;
+  }
+
+  &:has([data-slot="card-description"]) {
+    grid-row: auto auto;
+  }
+}
+
+.card-title {
+  font-family: "Outfit", sans-serif;
+
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  line-height: 1.375;
+}
+
+.card-description {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.card-action {
+  grid-column-start: 2;
+  grid-row: span 2 / span 2;
+  grid-row-start: 1;
+  justify-self: end;
+  align-self: flex-start;
+}
+
+.card-content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.card-footer {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  border-bottom-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-top-width: 1px;
+
+  background: oklch(0.269 0 0);
+
+  @media (prefers-color-scheme: light) {
+    background: oklch(0.97 0 0);
   }
 }

@@ -11,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/Card";
-import { Form } from "../../components/Form";
 import { Textbox } from "../../components/Textbox";
 
 import {
@@ -26,6 +25,7 @@ import { Role } from "../../../lib/getRole";
 import { requireRole } from "../../../lib/requireRole";
 import { CenteredLayout } from "../../components/CenteredLayout";
 import { Link } from "../../components/Link";
+import { Button } from "../../components/Button";
 
 export const path = "/admin/login";
 export const middleware = requireRole(Role.Anonymous, {
@@ -43,19 +43,20 @@ export function Page(): ComponentChild {
 
   return (
     <CenteredLayout>
-      <Card className={styles.card}>
-        <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>
-            If you are a band member, enter your credentials to manage the site.
-          </CardDescription>
-          <CardAction>
-            <Link tabIndex={4} href="./register" variant="button">
-              Register
-            </Link>
-          </CardAction>
-        </CardHeader>
-        <Form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
+        <Card className={styles.card}>
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
+            <CardDescription>
+              If you are a band member, enter your credentials to manage the
+              site.
+            </CardDescription>
+            <CardAction>
+              <Link tabIndex={4} href="./register" variant="outline">
+                Register
+              </Link>
+            </CardAction>
+          </CardHeader>
           <CardContent>
             <Textbox
               autoFocus
@@ -72,10 +73,15 @@ export function Page(): ComponentChild {
             />
           </CardContent>
           <CardFooter>
-            <input tabIndex={3} type="submit" value="Go" />
+            <Button
+              className={styles.button}
+              element="submit"
+              tabIndex={3}
+              value="Go"
+            />
           </CardFooter>
-        </Form>
-      </Card>
+        </Card>
+      </form>
     </CenteredLayout>
   );
 }

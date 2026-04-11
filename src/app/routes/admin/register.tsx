@@ -14,7 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/Card";
-import { Form } from "../../components/Form";
 import { Textbox } from "../../components/Textbox";
 import { useSignal } from "@preact/signals";
 import { Spinner } from "../../components/Spinner";
@@ -25,6 +24,7 @@ import { Role } from "../../../lib/getRole";
 import { requireRole } from "../../../lib/requireRole";
 import { CenteredLayout } from "../../components/CenteredLayout";
 import { Link } from "../../components/Link";
+import { Button } from "../../components/Button";
 
 export const path = "/admin/register";
 export const middleware = requireRole(Role.Anonymous, {
@@ -42,22 +42,23 @@ export function Page(): ComponentChild {
 
   return (
     <CenteredLayout>
-      <Card className={styles.card}>
-        <CardHeader>
-          <CardTitle>Register</CardTitle>
-          <CardDescription>
-            If you are a band member, fill out the form below to start helping
-            us manage the website.
-          </CardDescription>
-          <CardAction>
-            <Link tabIndex={6} href="./login" variant="button">
-              Login
-            </Link>
-          </CardAction>
-        </CardHeader>
-        <Form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
+        <Card className={styles.card}>
+          <CardHeader>
+            <CardTitle>Register</CardTitle>
+            <CardDescription>
+              If you are a band member, fill out the form below to start helping
+              us manage the website.
+            </CardDescription>
+            <CardAction>
+              <Link tabIndex={6} href="./login" variant="outline">
+                Login
+              </Link>
+            </CardAction>
+          </CardHeader>
           <CardContent>
             <Textbox
+              autoFocus
               type="text"
               placeholder="Username"
               tabIndex={2}
@@ -77,10 +78,15 @@ export function Page(): ComponentChild {
             />
           </CardContent>
           <CardFooter>
-            <input tabIndex={5} type="submit" value="Go" />
+            <Button
+              tabIndex={5}
+              className={styles.button}
+              element="submit"
+              value="Go"
+            />
           </CardFooter>
-        </Form>
-      </Card>
+        </Card>
+      </form>
     </CenteredLayout>
   );
 }

@@ -1,4 +1,4 @@
-import styles from "./Link.module.scss";
+import styles from "../Button/Button.module.scss";
 
 import clsx from "clsx";
 import { AnchorHTMLAttributes, ComponentChild } from "preact";
@@ -18,7 +18,7 @@ export function Link({
 
   return (
     <a
-      className={clsx(styles.link, styles[variant], className)}
+      className={clsx(styles.button, ...classesByVariant[variant], className)}
       href={href}
       {...(isExternal && { target: "_blank" })}
       {...props}
@@ -28,7 +28,15 @@ export function Link({
   );
 }
 
-type LinkProps = { variant?: "default" | "button" } & Pick<
+type LinkProps = { variant?: "default" | "outline" | "button" } & Pick<
   AnchorHTMLAttributes,
   "children" | "className" | "href" | "tabIndex"
 >;
+
+const classesByVariant: {
+  [Variant in Required<LinkProps>["variant"]]: string[];
+} = {
+  button: [styles.variantDefault, styles.sizeDefault],
+  outline: [styles.variantOutline, styles.sizeDefault],
+  default: [styles.variantLink],
+};

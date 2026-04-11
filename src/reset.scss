@@ -82,3 +82,10 @@ a {
   color: unset;
   text-decoration: unset;
 }
+
+/*
+  12. Remove default borders
+*/
+fieldset {
+  border-style: none;
+}

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import styles from "./Field.module.scss";
 
-import { ComponentChild, FieldsetHTMLAttributes } from "preact";
+import { ComponentChild, FieldsetHTMLAttributes, HTMLAttributes } from "preact";
 
 export function FieldSet({
   children,
@@ -13,3 +13,9 @@ export function FieldSet({
 }
 
 type FieldSetProps = Pick<FieldsetHTMLAttributes, "children" | "className">;
+
+export function Field({ children, className }: FieldProps): ComponentChild {
+  return <div className={clsx(styles.field, className)}>{children}</div>;
+}
+
+type FieldProps = Pick<HTMLAttributes, "children" | "className">;

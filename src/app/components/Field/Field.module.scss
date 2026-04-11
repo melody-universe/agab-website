@@ -13,3 +13,10 @@
     width: 100%;
   }
 }
+
+.fieldLabel {
+  display: flex;
+  gap: 0.5rem;
+  width: fit-content;
+  line-height: 1.375;
+}

@@ -34,5 +34,5 @@ type TextboxProps = {
   error: string | null;
 } & Pick<
   InputHTMLAttributes,
-  "tabIndex" | "placeholder" | "autoFocus" | "onInput" | "value"
+  "tabIndex" | "placeholder" | "autoFocus" | "id" | "onInput" | "value"
 >;

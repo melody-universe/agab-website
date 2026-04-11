@@ -2,6 +2,7 @@ import clsx from "clsx";
 import styles from "./Field.module.scss";
 
 import { ComponentChild, FieldsetHTMLAttributes, HTMLAttributes } from "preact";
+import { Label, LabelProps } from "../Label";
 
 export function FieldSet({
   children,
@@ -19,3 +20,10 @@ export function Field({ children, className }: FieldProps): ComponentChild {
 }
 
 type FieldProps = Pick<HTMLAttributes, "children" | "className">;
+
+export function FieldLabel({
+  className,
+  ...props
+}: LabelProps): ComponentChild {
+  return <Label className={clsx(styles.fieldLabel, className)} {...props} />;
+}

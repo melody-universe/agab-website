@@ -3,8 +3,11 @@ import styles from "./Label.module.scss";
 
 import { ComponentChild, LabelHTMLAttributes } from "preact";
 
-export function Label({ children, className }: LabelProps): ComponentChild {
-  return <label className={clsx(styles.label, className)}>{children}</label>;
+export function Label({ className, ...props }: LabelProps): ComponentChild {
+  return <label className={clsx(styles.label, className)} {...props} />;
 }
 
-type LabelProps = Pick<LabelHTMLAttributes, "children" | "className">;
+export type LabelProps = Pick<
+  LabelHTMLAttributes,
+  "children" | "className" | "htmlFor"
+>;

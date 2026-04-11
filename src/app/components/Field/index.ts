@@ -1,1 +1,1 @@
-export { Field, FieldSet } from "./Field";
+export { Field, FieldLabel, FieldSet } from "./Field";

@@ -25,7 +25,7 @@ import { requireRole } from "../../../lib/requireRole";
 import { CenteredLayout } from "../../components/CenteredLayout";
 import { Link } from "../../components/Link";
 import { Button } from "../../components/Button";
-import { Field, FieldSet } from "../../components/Field";
+import { Field, FieldLabel, FieldSet } from "../../components/Field";
 
 export const path = "/admin/register";
 export const middleware = requireRole(Role.Anonymous, {
@@ -60,26 +60,32 @@ export function Page(): ComponentChild {
           <CardContent>
             <FieldSet>
               <Field>
+                <FieldLabel htmlFor="username">Username</FieldLabel>
                 <Textbox
+                  id="username"
                   autoFocus
                   type="text"
-                  placeholder="Username"
+                  placeholder="Honk"
                   tabIndex={2}
                   {...username}
                 />
               </Field>
               <Field>
+                <FieldLabel htmlFor="password">Password</FieldLabel>
                 <Textbox
+                  id="password"
                   type="password"
-                  placeholder="Password"
                   tabIndex={3}
                   {...password}
                 />
               </Field>
               <Field>
+                <FieldLabel htmlFor="confirmPassword">
+                  Confirm password
+                </FieldLabel>
                 <Textbox
+                  id="confirmPassword"
                   type="password"
-                  placeholder="Confirm password"
                   tabIndex={4}
                   {...confirmPassword}
                 />
